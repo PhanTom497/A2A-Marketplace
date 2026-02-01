@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 import { useAccount, useSignTypedData } from 'wagmi';
 
 export const Marketplace: React.FC = () => {
@@ -41,7 +42,7 @@ function ProductCard({ title, price, endpoint, description }: { title: string, p
         setLoading(true);
         try {
             try {
-                const initialRes = await axios.get(`http://localhost:4021${endpoint}`);
+                const initialRes = await axios.get(`${API_BASE_URL}${endpoint}`);
                 console.log("✅ Data received directly:", initialRes.data);
                 setData(initialRes.data);
             } catch (err: any) {
@@ -107,7 +108,7 @@ function ProductCard({ title, price, endpoint, description }: { title: string, p
                         }
                     });
 
-                    const res = await axios.get(`http://localhost:4021${endpoint}`, {
+                    const res = await axios.get(`${API_BASE_URL}${endpoint}`, {
                         headers: {
                             'X-Payment': paymentHeader
                         }

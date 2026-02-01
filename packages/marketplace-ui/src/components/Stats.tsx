@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
 interface Metrics {
     totalRequests: number;
@@ -14,7 +15,7 @@ export const Stats: React.FC = () => {
     useEffect(() => {
         const fetchMetrics = async () => {
             try {
-                const res = await axios.get('http://localhost:4021/api/metrics/summary');
+                const res = await axios.get(`${API_BASE_URL}/api/metrics/summary`);
                 setMetrics(res.data.metrics);
             } catch (e) {
                 console.error("Failed to fetch metrics", e);

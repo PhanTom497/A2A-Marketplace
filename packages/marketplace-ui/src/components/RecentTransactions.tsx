@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { API_BASE_URL } from '../config';
 
 // Define interface for transaction
 interface Transaction {
@@ -21,7 +22,7 @@ export const RecentTransactions: React.FC = () => {
     useEffect(() => {
         const fetchMetrics = async () => {
             try {
-                const res = await axios.get('http://localhost:4021/api/metrics/summary');
+                const res = await axios.get(`${API_BASE_URL}/api/metrics/summary`);
                 if (res.data.metrics && res.data.metrics.recentTransactions) {
                     setTransactions(res.data.metrics.recentTransactions);
                 }
