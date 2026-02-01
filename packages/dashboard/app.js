@@ -6,8 +6,12 @@
 // ============ Configuration ============
 
 const CONFIG = {
-    apiUrl: 'http://localhost:4021',
-    wsUrl: 'ws://localhost:4022',
+    apiUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'http://localhost:4021'
+        : 'https://a2a-marketplace.onrender.com',
+    wsUrl: window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
+        ? 'ws://localhost:4022'
+        : 'wss://a2a-marketplace.onrender.com',
     pollingInterval: 5000, // 5 seconds fallback
     reconnectInterval: 3000,
 };

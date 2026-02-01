@@ -49,7 +49,7 @@ export const config = {
 
     // Server Configuration
     server: {
-        port: parseInt(process.env.API_PORT || '4021'),
+        port: parseInt(process.env.PORT || process.env.API_PORT || '4021'),
         websocketPort: parseInt(process.env.WEBSOCKET_PORT || '4022'),
         receiverWallet: process.env.RECEIVER_WALLET || '0x742d35Cc6634C0532925a3b844Bc454e4438f44e', // Baba's default or from env
     },
