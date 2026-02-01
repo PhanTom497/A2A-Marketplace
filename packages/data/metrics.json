@@ -965,11 +965,230 @@
       "amount": 1000,
       "amountFormatted": "0.001000 USDC",
       "status": "success"
+    },
+    {
+      "id": "tx_1769927439185_iua0uu",
+      "timestamp": "2026-02-01T06:30:39.185Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769928257048_sx49m8",
+      "timestamp": "2026-02-01T06:44:17.048Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769928326364_y4joz8",
+      "timestamp": "2026-02-01T06:45:26.364Z",
+      "endpoint": "/api/v1/markets/latam",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769928759089_qdk4ch",
+      "timestamp": "2026-02-01T06:52:39.089Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769928918843_tdkmt5",
+      "timestamp": "2026-02-01T06:55:18.844Z",
+      "endpoint": "/api/v1/markets/latam",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769929119824_x102j6",
+      "timestamp": "2026-02-01T06:58:39.825Z",
+      "endpoint": "/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 0,
+      "amountFormatted": "0 USDC",
+      "status": "failed",
+      "errorMessage": "Facilitator error: {\"isValid\":false,\"invalidReason\":\"couldn't validate x402 payload: payload must be an object (was missing)\"}"
+    },
+    {
+      "id": "tx_1769929818827_sjvvs9",
+      "timestamp": "2026-02-01T07:10:18.828Z",
+      "endpoint": "/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 0,
+      "amountFormatted": "0 USDC",
+      "status": "failed",
+      "errorMessage": "Facilitator error: {\"isValid\":false,\"invalidReason\":\"couldn't validate x402 payload: network must be a string (was missing)\\nscheme must be a string (was missing)\"}"
+    },
+    {
+      "id": "tx_1769929898886_80itd0",
+      "timestamp": "2026-02-01T07:11:38.886Z",
+      "endpoint": "/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 0,
+      "amountFormatted": "0 USDC",
+      "status": "failed",
+      "errorMessage": "Invalid payload: authorization must be an object (was missing)\nsignature must be a string (was missing)"
+    },
+    {
+      "id": "tx_1769930074391_yi6pnr",
+      "timestamp": "2026-02-01T07:14:34.392Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769930128064_559fgf",
+      "timestamp": "2026-02-01T07:15:28.064Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769930290910_1to9gz",
+      "timestamp": "2026-02-01T07:18:10.911Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769930680553_vqgjd5",
+      "timestamp": "2026-02-01T07:24:40.555Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769930682908_uflfyf",
+      "timestamp": "2026-02-01T07:24:42.908Z",
+      "endpoint": "/api/v1/markets/latam",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769930685617_wpi3kh",
+      "timestamp": "2026-02-01T07:24:45.617Z",
+      "endpoint": "/api/v1/crypto/trends",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769937580224_7inm8h",
+      "timestamp": "2026-02-01T09:19:40.224Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769942967133_9lvosb",
+      "timestamp": "2026-02-01T10:49:27.133Z",
+      "endpoint": "/api/v1/markets/latam",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769943124715_34qyv3",
+      "timestamp": "2026-02-01T10:52:04.715Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769943812966_l2x521",
+      "timestamp": "2026-02-01T11:03:32.966Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769944262928_iczzlb",
+      "timestamp": "2026-02-01T11:11:02.928Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769945191863_8dfh8l",
+      "timestamp": "2026-02-01T11:26:31.863Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769946666550_zjl91q",
+      "timestamp": "2026-02-01T11:51:06.550Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769946697040_cmvuar",
+      "timestamp": "2026-02-01T11:51:37.040Z",
+      "endpoint": "/api/v1/crypto/trends",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769947527283_eqznfp",
+      "timestamp": "2026-02-01T12:05:27.283Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769947881462_wgv1em",
+      "timestamp": "2026-02-01T12:11:21.462Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
     }
   ],
   "uniqueAgents": [
     "unknown",
     "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562"
   ],
-  "lastUpdated": "2026-02-01T06:01:02.189Z"
+  "lastUpdated": "2026-02-01T12:11:21.462Z"
 }

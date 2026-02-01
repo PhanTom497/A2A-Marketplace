@@ -19,6 +19,7 @@ interface Metrics {
 
 export function DashboardView() {
     const [metrics, setMetrics] = useState<Metrics | null>(null);
+    const [filter, setFilter] = useState<'all' | 'pending' | 'settled'>('all');
 
     useEffect(() => {
         const fetchMetrics = async () => {
@@ -147,9 +148,18 @@ export function DashboardView() {
                 <div className="p-6 border-b border-slate-700/50 flex justify-between items-center">
                     <h3 className="text-lg font-semibold text-white">Recent Transactions</h3>
                     <div className="flex gap-2">
-                        <button className="px-3 py-1 text-xs bg-slate-800 text-slate-300 rounded hover:bg-slate-700 transition">All</button>
-                        <button className="px-3 py-1 text-xs text-slate-500 hover:text-slate-300 transition">Pending</button>
-                        <button className="px-3 py-1 text-xs text-slate-500 hover:text-slate-300 transition">Settled</button>
+                        <button
+                            onClick={() => setFilter('all')}
+                            className={cn("px-3 py-1 text-xs rounded transition", filter === 'all' ? "bg-slate-700 text-white" : "bg-slate-800 text-slate-500 hover:text-slate-300")}
+                        >All</button>
+                        <button
+                            onClick={() => setFilter('pending')}
+                            className={cn("px-3 py-1 text-xs rounded transition", filter === 'pending' ? "bg-slate-700 text-white" : "text-slate-500 hover:text-slate-300")}
+                        >Pending</button>
+                        <button
+                            onClick={() => setFilter('settled')}
+                            className={cn("px-3 py-1 text-xs rounded transition", filter === 'settled' ? "bg-slate-700 text-white" : "text-slate-500 hover:text-slate-300")}
+                        >Settled</button>
                     </div>
                 </div>
                 <div className="overflow-x-auto">
@@ -158,34 +168,39 @@ export function DashboardView() {
                             <tr>
                                 <th className="px-6 py-4">Invoice Hash</th>
                                 <th className="px-6 py-4">Status</th>
+                                <th className="px-6 py-4">Timestamp</th>
                                 <th className="px-6 py-4 text-right">Method</th>
-                                <th className="px-6 py-4 text-right">Actions</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-slate-700/50">
-                            {metrics.recentTransactions.slice(0, 5).map((tx, i) => (
-                                <tr key={i} className="hover:bg-slate-700/20 transition">
-                                    <td className="px-6 py-4 font-mono text-white">
-                                        {tx.hash || `0x${Math.random().toString(16).slice(2, 10)}...${Math.random().toString(16).slice(2, 6)}`}
-                                    </td>
-                                    <td className="px-6 py-4">
-                                        <span className={cn(
-                                            "px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide",
-                                            tx.status === 'success' ? "bg-white text-black" : "bg-slate-700 text-slate-300"
-                                        )}>
-                                            {tx.status === 'success' ? 'Settled' : 'Pending'}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-4 text-right font-mono text-xs">
-                                        x402
-                                    </td>
-                                    <td className="px-6 py-4 text-right">
-                                        <button className="text-purple-400 hover:text-purple-300 text-xs border border-purple-500/30 px-3 py-1 rounded bg-purple-500/10">
-                                            Verify On-Chain
-                                        </button>
-                                    </td>
-                                </tr>
-                            ))}
+                            {metrics.recentTransactions
+                                .filter(tx => {
+                                    if (filter === 'all') return true;
+                                    if (filter === 'settled') return tx.status === 'success';
+                                    if (filter === 'pending') return tx.status !== 'success';
+                                    return true;
+                                })
+                                .slice(0, 10).map((tx, i) => (
+                                    <tr key={i} className="hover:bg-slate-700/20 transition">
+                                        <td className="px-6 py-4 font-mono text-white">
+                                            {tx.hash || `0x${Math.random().toString(16).slice(2, 10)}...${Math.random().toString(16).slice(2, 6)}`}
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <span className={cn(
+                                                "px-2 py-1 rounded-full text-[10px] font-bold uppercase tracking-wide",
+                                                tx.status === 'success' ? "bg-green-500/20 text-green-400" : "bg-orange-500/20 text-orange-400"
+                                            )}>
+                                                {tx.status === 'success' ? 'Settled' : 'Pending'}
+                                            </span>
+                                        </td>
+                                        <td className="px-6 py-4 text-sm text-slate-400">
+                                            {new Date(tx.timestamp).toLocaleString()}
+                                        </td>
+                                        <td className="px-6 py-4 text-right font-mono text-xs">
+                                            x402
+                                        </td>
+                                    </tr>
+                                ))}
                         </tbody>
                     </table>
                 </div>

@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>A2A Marketplace - Agent-to-Agent Knowledge Exchange</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00FFD1;
+            --primary-dim: #00C9A7;
+            --accent: #7B61FF;
+            --accent-light: #9B8AFF;
+            --bg-black: #000000;
+            --bg-dark: #0A0A0A;
+            --bg-darker: #050505;
+            --glass-bg: rgba(255, 255, 255, 0.02);
+            --glass-border: rgba(255, 255, 255, 0.06);
+            --text-primary: #FFFFFF;
+            --text-secondary: #9CA3AF;
+            --text-dim: #6B7280;
+            --success: #00FFD1;
+            --warning: #FFB800;
+            --error: #FF4444;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background: var(--bg-black);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Advanced Animated Background - Polygon Style */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+            background: radial-gradient(ellipse at center, #0F0820 0%, #000000 100%);
+        }
+
+        .space-grid {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(rgba(123, 97, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(123, 97, 255, 0.05) 1px, transparent 1px);
+            background-size: 60px 60px;
+            opacity: 0.6;
+        }
+
+        .mesh-gradient {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            opacity: 0.2;
+            background:
+                radial-gradient(ellipse at 15% 25%, rgba(123, 97, 255, 0.25) 0px, transparent 40%),
+                radial-gradient(ellipse at 85% 20%, rgba(0, 255, 209, 0.15) 0px, transparent 40%),
+                radial-gradient(ellipse at 50% 80%, rgba(123, 97, 255, 0.2) 0px, transparent 40%),
+                radial-gradient(ellipse at 90% 75%, rgba(0, 255, 209, 0.15) 0px, transparent 40%);
+            filter: blur(80px);
+            animation: meshMove 25s ease-in-out infinite;
+        }
+
+        @keyframes meshMove {
+
+            0%,
+            100% {
+                transform: translate(0, 0) scale(1);
+            }
+
+            33% {
+                transform: translate(-3%, 4%) scale(1.05);
+            }
+
+            66% {
+                transform: translate(3%, -4%) scale(0.95);
+            }
+        }
+
+        .network-nodes {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .node {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, rgba(123, 97, 255, 1) 0%, rgba(123, 97, 255, 0.2) 70%);
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(123, 97, 255, 0.8), 0 0 40px rgba(123, 97, 255, 0.4);
+            animation: nodePulse 3s ease-in-out infinite;
+        }
+
+        @keyframes nodePulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+                box-shadow: 0 0 20px rgba(123, 97, 255, 0.8), 0 0 40px rgba(123, 97, 255, 0.4);
+            }
+
+            50% {
+                opacity: 0.6;
+                transform: scale(1.3);
+                box-shadow: 0 0 30px rgba(123, 97, 255, 1), 0 0 60px rgba(123, 97, 255, 0.6);
+            }
+        }
+
+        .connection-line {
+            position: absolute;
+            height: 1px;
+            background: linear-gradient(90deg,
+                    rgba(123, 97, 255, 0) 0%,
+                    rgba(123, 97, 255, 0.4) 50%,
+                    rgba(123, 97, 255, 0) 100%);
+            transform-origin: left center;
+            animation: lineFlow 4s ease-in-out infinite;
+        }
+
+        @keyframes lineFlow {
+
+            0%,
+            100% {
+                opacity: 0.2;
+            }
+
+            50% {
+                opacity: 0.8;
+            }
+        }
+
+        .floating-particles {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 2px;
+            height: 2px;
+            background: rgba(0, 255, 209, 0.6);
+            border-radius: 50%;
+            box-shadow: 0 0 4px rgba(0, 255, 209, 0.8);
+            animation: particleFloat 20s linear infinite;
+        }
+
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(-100vh) translateX(150px) scale(0);
+                opacity: 0;
+            }
+        }
+
+        /* Glass Morphism */
+        .glass {
+            background: rgba(10, 10, 10, 0.4);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+        }
+
+        .glass-strong {
+            background: rgba(15, 15, 15, 0.8);
+            backdrop-filter: blur(30px);
+            -webkit-backdrop-filter: blur(30px);
+            border: 1px solid var(--glass-border);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.25rem 0;
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--glass-border);
+            animation: slideDown 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-100%);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .nav-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            text-decoration: none;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: translateX(3px);
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transform: translateX(-100%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+
+            0%,
+            100% {
+                transform: translateX(-100%);
+            }
+
+            50% {
+                transform: translateX(100%);
+            }
+        }
+
+        .logo-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--bg-black);
+        }
+
+        .logo-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            letter-spacing: -0.02em;
+        }
+
+        .logo-subtitle {
+            font-size: 0.65rem;
+            font-weight: 500;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2.5rem;
+            align-items: center;
+        }
+
+        .nav-link {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+
+        .nav-link:hover {
+            color: var(--text-primary);
+        }
+
+        .nav-link.active {
+            color: var(--primary);
+        }
+
+        .nav-link.active::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: var(--primary);
+            border-radius: 2px;
+        }
+
+        .connect-wallet {
+            padding: 0.7rem 1.5rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .connect-wallet:hover {
+            background: rgba(0, 255, 209, 0.05);
+            border-color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .wallet-icon {
+            width: 18px;
+            height: 18px;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10rem 2rem 6rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-glow {
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 1000px;
+            height: 600px;
+            background: radial-gradient(ellipse, rgba(0, 255, 209, 0.1) 0%, transparent 70%);
+            filter: blur(80px);
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.5rem 1.2rem;
+            background: rgba(0, 255, 209, 0.05);
+            border: 1px solid rgba(0, 255, 209, 0.2);
+            border-radius: 50px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--primary);
+            margin-bottom: 2.5rem;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.2s both;
+        }
+
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                opacity: 1;
+                transform: scale(1);
+            }
+
+            50% {
+                opacity: 0.5;
+                transform: scale(1.2);
+            }
+        }
+
+        h1 {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            letter-spacing: -0.03em;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.3s both;
+        }
+
+        .hero-title-line {
+            display: block;
+        }
+
+        .gradient-text {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--accent) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 3rem;
+            line-height: 1.7;
+            font-weight: 400;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.4s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.5s both;
+            margin-bottom: 5rem;
+        }
+
+        .btn {
+            padding: 1rem 2rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--bg-black);
+            box-shadow: 0 0 30px rgba(0, 255, 209, 0.3);
+        }
+
+        .btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, var(--accent), var(--primary));
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 40px rgba(0, 255, 209, 0.4);
+        }
+
+        .btn-secondary {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            color: var(--text-primary);
+            backdrop-filter: blur(10px);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Stats Grid */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            max-width: 1000px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) 0.6s both;
+        }
+
+        .stat-card {
+            padding: 2rem;
+            background: rgba(10, 10, 10, 0.3);
+            border: 1px solid var(--glass-border);
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .stat-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-5px);
+            background: rgba(0, 255, 209, 0.02);
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            font-variant-numeric: tabular-nums;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 5rem;
+        }
+
+        .section-label {
+            display: inline-block;
+            padding: 0.4rem 1rem;
+            background: rgba(0, 255, 209, 0.05);
+            border: 1px solid rgba(0, 255, 209, 0.2);
+            border-radius: 50px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        h2 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 900;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
+            letter-spacing: -0.02em;
+        }
+
+        .section-description {
+            font-size: 1.2rem;
+            color: var(--text-secondary);
+            line-height: 1.7;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            padding: 2.5rem;
+            background: rgba(10, 10, 10, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.5s ease;
+        }
+
+        .feature-card:hover {
+            border-color: rgba(0, 255, 209, 0.3);
+            transform: translateY(-8px);
+            background: rgba(0, 255, 209, 0.02);
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: rgba(0, 255, 209, 0.1);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            border: 1px solid rgba(0, 255, 209, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: rgba(0, 255, 209, 0.15);
+            border-color: var(--primary);
+            transform: scale(1.1);
+        }
+
+        .feature-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+            letter-spacing: -0.01em;
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .feature-tag {
+            display: inline-block;
+            padding: 0.35rem 0.75rem;
+            background: rgba(0, 255, 209, 0.08);
+            border: 1px solid rgba(0, 255, 209, 0.25);
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Marketplace Section */
+        .marketplace {
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .marketplace-container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .api-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(450px, 1fr));
+            gap: 2rem;
+            margin-top: 4rem;
+        }
+
+        .api-card {
+            background: rgba(10, 10, 10, 0.6);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            cursor: pointer;
+        }
+
+        .api-card:hover {
+            border-color: rgba(0, 255, 209, 0.4);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 60px rgba(0, 255, 209, 0.1);
+        }
+
+        .api-header {
+            padding: 2rem;
+            background: linear-gradient(135deg, rgba(0, 255, 209, 0.05), rgba(123, 97, 255, 0.05));
+            border-bottom: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .api-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: var(--text-primary);
+        }
+
+        .api-endpoint {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--primary);
+            padding: 0.4rem 0.8rem;
+            background: rgba(0, 255, 209, 0.1);
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 1rem;
+        }
+
+        .api-price {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.6rem 1.2rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--primary);
+            border-radius: 8px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            color: var(--primary);
+        }
+
+        .api-body {
+            padding: 2rem;
+        }
+
+        .code-preview {
+            background: rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+            padding: 1.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            max-height: 300px;
+            overflow: auto;
+            position: relative;
+            line-height: 1.6;
+        }
+
+        .code-preview::before {
+            content: 'VERIFIED';
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            font-size: 0.6rem;
+            padding: 0.3rem 0.6rem;
+            background: rgba(0, 255, 209, 0.15);
+            border: 1px solid var(--success);
+            border-radius: 4px;
+            color: var(--success);
+            letter-spacing: 0.05em;
+        }
+
+        .unlock-button {
+            width: 100%;
+            padding: 1.2rem;
+            margin-top: 1.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--bg-black);
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .unlock-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(0, 255, 209, 0.3);
+        }
+
+        /* Dashboard */
+        .dashboard {
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            max-width: 1600px;
+            margin: 0 auto 3rem;
+        }
+
+        .metric-card {
+            padding: 2.5rem;
+            background: rgba(10, 10, 10, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .metric-card:hover {
+            border-color: rgba(0, 255, 209, 0.3);
+            transform: translateY(-5px);
+        }
+
+        .metric-header {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .metric-icon {
+            width: 48px;
+            height: 48px;
+            background: rgba(0, 255, 209, 0.1);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: 700;
+            color: var(--primary);
+            border: 1px solid rgba(0, 255, 209, 0.2);
+            letter-spacing: -0.02em;
+        }
+
+        .metric-info {
+            flex: 1;
+        }
+
+        .metric-label {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .metric-value {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--text-primary);
+            font-variant-numeric: tabular-nums;
+        }
+
+        .analytics-wrapper {
+            max-width: 1600px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        .chart-container {
+            padding: 2.5rem;
+            background: rgba(10, 10, 10, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+        }
+
+        .chart-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2.5rem;
+        }
+
+        .chart-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+        }
+
+        .chart-select {
+            padding: 0.6rem 1rem;
+            background: rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+            color: var(--text-primary);
+            font-family: 'Inter', sans-serif;
+            font-size: 0.85rem;
+            cursor: pointer;
+            outline: none;
+        }
+
+        .chart-visualization {
+            height: 320px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            padding: 2rem 1rem 1rem;
+            position: relative;
+        }
+
+        .chart-bar {
+            width: 45px;
+            background: linear-gradient(180deg, var(--primary) 0%, rgba(0, 255, 209, 0.3) 100%);
+            border-radius: 6px 6px 0 0;
+            position: relative;
+            transition: all 0.3s ease;
+            animation: barRise 1s cubic-bezier(0.16, 1, 0.3, 1) both;
+        }
+
+        .chart-bar:hover {
+            background: linear-gradient(180deg, var(--accent) 0%, rgba(123, 97, 255, 0.3) 100%);
+            transform: scaleY(1.05);
+        }
+
+        @keyframes barRise {
+            from {
+                height: 0;
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .chart-bar:nth-child(1) {
+            height: 100px;
+            animation-delay: 0.1s;
+        }
+
+        .chart-bar:nth-child(2) {
+            height: 70px;
+            animation-delay: 0.2s;
+        }
+
+        .chart-bar:nth-child(3) {
+            height: 90px;
+            animation-delay: 0.3s;
+        }
+
+        .chart-bar:nth-child(4) {
+            height: 130px;
+            animation-delay: 0.4s;
+        }
+
+        .chart-bar:nth-child(5) {
+            height: 80px;
+            animation-delay: 0.5s;
+        }
+
+        .chart-bar:nth-child(6) {
+            height: 110px;
+            animation-delay: 0.6s;
+        }
+
+        .chart-bar:nth-child(7) {
+            height: 180px;
+            animation-delay: 0.7s;
+        }
+
+        .chart-bar:nth-child(8) {
+            height: 240px;
+            animation-delay: 0.8s;
+        }
+
+        .live-feed {
+            padding: 2.5rem;
+            background: rgba(10, 10, 10, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+        }
+
+        .feed-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 2rem;
+        }
+
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        .live-dot {
+            width: 8px;
+            height: 8px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        .feed-item {
+            padding: 1.2rem;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--glass-border);
+            border-left: 3px solid var(--primary);
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            animation: slideInRight 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+            transition: all 0.3s ease;
+        }
+
+        .feed-item:hover {
+            border-left-color: var(--accent);
+            background: rgba(0, 255, 209, 0.02);
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(30px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        .feed-item:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .feed-item:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .feed-item:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .feed-item:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .feed-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+
+        .feed-address {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .feed-amount {
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--success);
+        }
+
+        .feed-type {
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* Transactions */
+        .transactions {
+            padding: 8rem 2rem;
+            position: relative;
+        }
+
+        .transactions-wrapper {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-button {
+            padding: 0.7rem 1.5rem;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-secondary);
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'Inter', sans-serif;
+        }
+
+        .filter-button.active {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--bg-black);
+            border-color: transparent;
+        }
+
+        .filter-button:hover:not(.active) {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: var(--primary);
+        }
+
+        .table-container {
+            padding: 2.5rem;
+            background: rgba(10, 10, 10, 0.4);
+            border: 1px solid var(--glass-border);
+            border-radius: 16px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead {
+            border-bottom: 1px solid var(--glass-border);
+        }
+
+        th {
+            padding: 1.2rem;
+            text-align: left;
+            font-size: 0.8rem;
+            font-weight: 700;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        td {
+            padding: 1.5rem 1.2rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.02);
+            font-size: 0.95rem;
+        }
+
+        tbody tr {
+            transition: background 0.3s ease;
+        }
+
+        tbody tr:hover {
+            background: rgba(0, 255, 209, 0.02);
+        }
+
+        .tx-hash {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--primary);
+            font-size: 0.9rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            padding: 0.4rem 0.9rem;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .status-settled {
+            background: rgba(0, 255, 209, 0.15);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .status-pending {
+            background: rgba(255, 184, 0, 0.15);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .tx-timestamp {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .tx-method {
+            font-family: 'JetBrains Mono', monospace;
+            padding: 0.4rem 0.8rem;
+            background: rgba(123, 97, 255, 0.1);
+            border: 1px solid rgba(123, 97, 255, 0.3);
+            border-radius: 6px;
+            font-size: 0.75rem;
+            color: var(--accent-light);
+        }
+
+        /* Footer */
+        footer {
+            padding: 5rem 2rem 2rem;
+            border-top: 1px solid var(--glass-border);
+            position: relative;
+        }
+
+        .footer-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 2fr repeat(3, 1fr);
+            gap: 3rem;
+            margin-bottom: 3rem;
+        }
+
+        .footer-brand {
+            max-width: 400px;
+        }
+
+        .footer-logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-logo-icon {
+            width: 40px;
+            height: 40px;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .footer-logo-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: var(--bg-black);
+        }
+
+        .footer-logo-text {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--text-primary);
+        }
+
+        .footer-description {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            width: 40px;
+            height: 40px;
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-secondary);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 1.2rem;
+        }
+
+        .social-link:hover {
+            background: rgba(0, 255, 209, 0.1);
+            border-color: var(--primary);
+            color: var(--primary);
+            transform: translateY(-3px);
+        }
+
+        .footer-section h4 {
+            font-size: 0.95rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            color: var(--text-primary);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-links li {
+            margin-bottom: 0.9rem;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+        }
+
+        .footer-bottom {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 2rem;
+            border-top: 1px solid var(--glass-border);
+            text-align: center;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .analytics-wrapper {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .btn {
+                width: 100%;
+            }
+
+            .features-grid,
+            .api-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+
+            .metrics-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            table {
+                font-size: 0.8rem;
+            }
+
+            th,
+            td {
+                padding: 1rem 0.5rem;
+            }
+        }
+
+        /* Scroll animations */
+        .scroll-fade {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .scroll-fade.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg-darker);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: rgba(0, 255, 209, 0.3);
+            border-radius: 5px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(0, 255, 209, 0.5);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Animated Background -->
+    <div class="animated-bg">
+        <div class="space-grid"></div>
+        <div class="mesh-gradient"></div>
+        <div class="network-nodes" id="networkNodes"></div>
+        <div class="floating-particles" id="particles"></div>
+    </div>
+
+    <!-- Header -->
+    <header>
+        <div class="nav-container">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7L12 12L22 7L12 2Z" />
+                        <path d="M2 17L12 22L22 17" />
+                        <path d="M2 12L12 17L22 12" />
+                    </svg>
+                </div>
+                <div class="logo-text">
+                    <div class="logo-title">A2A Market</div>
+                    <div class="logo-subtitle">Agent Exchange</div>
+                </div>
+            </a>
+            <nav class="nav-links">
+                <a href="#marketplace" class="nav-link active">Explorer</a>
+                <a href="#dashboard" class="nav-link">Dashboard</a>
+                <a href="#docs" class="nav-link">Docs</a>
+            </nav>
+            <button class="connect-wallet">
+                <svg class="wallet-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="5" width="20" height="14" rx="2" />
+                    <path d="M2 10h20" />
+                </svg>
+                Connect Wallet
+            </button>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-glow"></div>
+        <div class="hero-content">
+            <div class="hero-badge">
+                <span class="status-dot"></span>
+                BUILD ON POLYGON AMOY
+            </div>
+            <h1>
+                <span class="hero-title-line">It's not our first</span>
+                <span class="hero-title-line"><span class="gradient-text">micropayment</span></span>
+            </h1>
+            <p class="hero-subtitle">
+                The go-to marketplace for agent-to-agent exchange, where AI agents and humans
+                access data APIs with gasless micropayments (0.001 USDC), instantly, at scale.
+            </p>
+            <div class="hero-cta">
+                <a href="#marketplace" class="btn btn-primary">
+                    <span>Explore APIs</span>
+                </a>
+                <a href="#" class="btn btn-secondary">
+                    <span>Read Documentation</span>
+                </a>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value">120</div>
+                    <div class="stat-label">Total Invoices</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">0.001</div>
+                    <div class="stat-label">USDC Per Call</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">100%</div>
+                    <div class="stat-label">Gasless</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value">2</div>
+                    <div class="stat-label">Active Merchants</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features scroll-fade" id="features">
+        <div class="section-header">
+            <span class="section-label">Features</span>
+            <h2>Built for the Agent Economy</h2>
+            <p class="section-description">
+                Gasless micropayments powered by EIP-3009, enabling seamless agent-to-agent and human-to-agent data
+                exchange
+            </p>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">⚡</div>
+                <h3 class="feature-title">Gasless Transactions</h3>
+                <p class="feature-description">
+                    Uses TransferWithAuthorization (EIP-3009) so the facilitator pays gas. Any user with USDC
+                    can transact without needing POL for gas fees.
+                </p>
+                <span class="feature-tag">EIP-3009</span>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">RT</div>
+                <h3 class="feature-title">Real-time Dashboard</h3>
+                <p class="feature-description">
+                    WebSocket-powered analytics of every transaction. Live monitoring provides instant
+                    insights into marketplace activity and API consumption patterns.
+                </p>
+                <span class="feature-tag">Live Feed</span>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">402</div>
+                <h3 class="feature-title">x402 Protocol</h3>
+                <p class="feature-description">
+                    Standardized HTTP 402 "Payment Required" flow enables seamless integration with any
+                    API client. Universal protocol for pay-per-request data access.
+                </p>
+                <span class="feature-tag">HTTP 402</span>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">CB</div>
+                <h3 class="feature-title">Corbits Facilitator</h3>
+                <p class="feature-description">
+                    Integration with Corbits for verifying signatures off-chain. Ensures secure, trustless
+                    transactions while maintaining decentralization and transparency.
+                </p>
+                <span class="feature-tag">Verified</span>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">µ$</div>
+                <h3 class="feature-title">Micropayments</h3>
+                <p class="feature-description">
+                    Request-level pricing at 0.001 USDC enables cost-effective API consumption. Perfect for
+                    AI agents making thousands of calls without expensive subscriptions.
+                </p>
+                <span class="feature-tag">0.001 USDC</span>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">A2A</div>
+                <h3 class="feature-title">Agent-First Design</h3>
+                <p class="feature-description">
+                    Built for autonomous AI agents and humans to discover, purchase, and consume data APIs
+                    seamlessly. Machine-readable contracts with instant settlement.
+                </p>
+                <span class="feature-tag">Autonomous</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- Marketplace Section -->
+    <section id="marketplace" class="marketplace scroll-fade">
+        <div class="marketplace-container">
+            <div class="section-header">
+                <span class="section-label">Data APIs</span>
+                <h2>Knowledge Marketplace</h2>
+                <p class="section-description">
+                    Access verified data APIs with 0.001 USDC micropayments through x402 protocol
+                </p>
+            </div>
+            <div class="api-grid">
+                <div class="api-card">
+                    <div class="api-header">
+                        <h3 class="api-title">Arc Stablecoin Analytics</h3>
+                        <span class="api-endpoint">/api/v1/stablecoins/arc</span>
+                        <div class="api-price">
+                            <span>0.001 USDC</span>
+                        </div>
+                    </div>
+                    <div class="api-body">
+                        <div class="code-preview">{
+                            "success": true,
+                            "endpoint": "/api/v1/stablecoins/arc",
+                            "pricePerRequest": "0.001 USDC",
+                            "data": {
+                            "timestamp": "2026-02-01T07:24:40.552Z",
+                            "chain": "Polygon",
+                            "stablecoin": {
+                            "name": "ARC (Indian Rupee Coin)",
+                            "symbol": "ARC",
+                            "pegCurrency": "INR",
+                            "contractAddress": "0x7C6b91D9e155A6Db0",
+                            "totalSupply": "15400000",
+                            "pegRate": "1.00",
+                            "lastAudit": "2026-01-28"
+                            }
+                            }
+                            }</div>
+                        <button class="unlock-button">Unlock Data</button>
+                    </div>
+                </div>
+
+                <div class="api-card">
+                    <div class="api-header">
+                        <h3 class="api-title">LATAM Market Trends</h3>
+                        <span class="api-endpoint">/api/v1/markets/latam</span>
+                        <div class="api-price">
+                            <span>0.002 USDC</span>
+                        </div>
+                    </div>
+                    <div class="api-body">
+                        <div class="code-preview">{
+                            "success": true,
+                            "endpoint": "/api/v1/markets/latam",
+                            "pricePerRequest": "0.001 USDC",
+                            "data": {
+                            "timestamp": "2026-02-01T07:24:42.907Z",
+                            "region": "Latin America",
+                            "overview": {
+                            "totalCryptoUsers": 68838252,
+                            "yearOverYearGrowth": 46.4622,
+                            "dominantUseCase": "Remittances",
+                            "regulatoryClimate": "Mixed - Improving",
+                            "topCountries": ["Brazil", "Argentina"]
+                            }
+                            }
+                            }</div>
+                        <button class="unlock-button">Unlock Data</button>
+                    </div>
+                </div>
+
+                <div class="api-card">
+                    <div class="api-header">
+                        <h3 class="api-title">Crypto Global Trends</h3>
+                        <span class="api-endpoint">/api/v1/crypto/trends</span>
+                        <div class="api-price">
+                            <span>0.005 USDC</span>
+                        </div>
+                    </div>
+                    <div class="api-body">
+                        <div class="code-preview">{
+                            "success": true,
+                            "endpoint": "/api/v1/crypto/trends",
+                            "pricePerRequest": "0.001 USDC",
+                            "data": {
+                            "timestamp": "2026-02-01T07:24:45.616Z",
+                            "globalMetrics": {
+                            "totalMarketCap": 2836148334563.97,
+                            "btcDominance": 52.3011,
+                            "ethDominance": 18.2536,
+                            "altcoinSeason": false,
+                            "fearGreedIndex": 61
+                            }
+                            }
+                            }</div>
+                        <button class="unlock-button">Unlock Data</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Dashboard Section -->
+    <section id="dashboard" class="dashboard scroll-fade">
+        <div class="section-header">
+            <span class="section-label">Analytics</span>
+            <h2>Live Dashboard</h2>
+            <p class="section-description">
+                Real-time marketplace insights powered by WebSocket connections
+            </p>
+        </div>
+
+        <div class="metrics-grid">
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-icon">INV</div>
+                    <div class="metric-info">
+                        <div class="metric-label">Total Invoices</div>
+                        <div class="metric-value">120</div>
+                    </div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-icon">SET</div>
+                    <div class="metric-info">
+                        <div class="metric-label">Settled</div>
+                        <div class="metric-value">105</div>
+                    </div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-icon">PND</div>
+                    <div class="metric-info">
+                        <div class="metric-label">Pending</div>
+                        <div class="metric-value">15</div>
+                    </div>
+                </div>
+            </div>
+            <div class="metric-card">
+                <div class="metric-header">
+                    <div class="metric-icon">MER</div>
+                    <div class="metric-info">
+                        <div class="metric-label">Active Merchants</div>
+                        <div class="metric-value">2</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="analytics-wrapper">
+            <div class="chart-container">
+                <div class="chart-header">
+                    <h3 class="chart-title">Invoice Volume</h3>
+                    <select class="chart-select">
+                        <option>Daily</option>
+                        <option>Weekly</option>
+                        <option>Monthly</option>
+                    </select>
+                </div>
+                <div class="chart-visualization">
+                    <div class="chart-bar"></div>
+                    <div class="chart-bar"></div>
+                    <div class="chart-bar"></div>
+                    <div class="chart-bar"></div>
+                    <div class="chart-bar"></div>
+                    <div class="chart-bar"></div>
+                    <div class="chart-bar"></div>
+                    <div class="chart-bar"></div>
+                </div>
+            </div>
+
+            <div class="live-feed">
+                <div class="feed-header">
+                    <h3 class="chart-title">Live Feed</h3>
+                    <div class="live-indicator">
+                        <span class="live-dot"></span>
+                        <span>LIVE</span>
+                    </div>
+                </div>
+                <div class="feed-item">
+                    <div class="feed-row">
+                        <span class="feed-address">0x35E9...C562</span>
+                        <span class="feed-amount">0.001000 USDC</span>
+                    </div>
+                    <div class="feed-type">trends</div>
+                </div>
+                <div class="feed-item">
+                    <div class="feed-row">
+                        <span class="feed-address">0x35E9...C562</span>
+                        <span class="feed-amount">0.001000 USDC</span>
+                    </div>
+                    <div class="feed-type">latam</div>
+                </div>
+                <div class="feed-item">
+                    <div class="feed-row">
+                        <span class="feed-address">0x35E9...C562</span>
+                        <span class="feed-amount">0.001000 USDC</span>
+                    </div>
+                    <div class="feed-type">arc</div>
+                </div>
+                <div class="feed-item">
+                    <div class="feed-row">
+                        <span class="feed-address">0x35E9...C562</span>
+                        <span class="feed-amount">0.001000 USDC</span>
+                    </div>
+                    <div class="feed-type">arc</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Transactions Section -->
+    <section class="transactions scroll-fade">
+        <div class="transactions-wrapper">
+            <div class="section-header">
+                <span class="section-label">Blockchain</span>
+                <h2>Recent Transactions</h2>
+            </div>
+
+            <div class="filter-bar">
+                <button class="filter-button active">All</button>
+                <button class="filter-button">Pending</button>
+                <button class="filter-button">Settled</button>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Invoice Hash</th>
+                            <th>Status</th>
+                            <th>Timestamp</th>
+                            <th>Method</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="tx-hash">0x3009faca...5203</span></td>
+                            <td><span class="status-badge status-settled">SETTLED</span></td>
+                            <td class="tx-timestamp">2/1/2026, 12:54:45 PM</td>
+                            <td><span class="tx-method">x402</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="tx-hash">0x1c701603...3f7d</span></td>
+                            <td><span class="status-badge status-settled">SETTLED</span></td>
+                            <td class="tx-timestamp">2/1/2026, 12:54:42 PM</td>
+                            <td><span class="tx-method">x402</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="tx-hash">0x89cba234...e874</span></td>
+                            <td><span class="status-badge status-settled">SETTLED</span></td>
+                            <td class="tx-timestamp">2/1/2026, 12:54:40 PM</td>
+                            <td><span class="tx-method">x402</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="tx-hash">0xf9161128...8b9c</span></td>
+                            <td><span class="status-badge status-settled">SETTLED</span></td>
+                            <td class="tx-timestamp">2/1/2026, 12:48:10 PM</td>
+                            <td><span class="tx-method">x402</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="tx-hash">0x5aab77b0...f632</span></td>
+                            <td><span class="status-badge status-settled">SETTLED</span></td>
+                            <td class="tx-timestamp">2/1/2026, 12:45:28 PM</td>
+                            <td><span class="tx-method">x402</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="tx-hash">0x27c11cdf...0906</span></td>
+                            <td><span class="status-badge status-settled">SETTLED</span></td>
+                            <td class="tx-timestamp">2/1/2026, 12:44:34 PM</td>
+                            <td><span class="tx-method">x402</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="tx-hash">0x617acaff...2a52</span></td>
+                            <td><span class="status-badge status-pending">PENDING</span></td>
+                            <td class="tx-timestamp">2/1/2026, 12:41:38 PM</td>
+                            <td><span class="tx-method">x402</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="tx-hash">0x4bf47900...376a</span></td>
+                            <td><span class="status-badge status-pending">PENDING</span></td>
+                            <td class="tx-timestamp">2/1/2026, 12:40:18 PM</td>
+                            <td><span class="tx-method">x402</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-brand">
+                <div class="footer-logo">
+                    <div class="footer-logo-icon">
+                        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7L12 12L22 7L12 2Z" />
+                            <path d="M2 17L12 22L22 17" />
+                            <path d="M2 12L12 17L22 12" />
+                        </svg>
+                    </div>
+                    <div class="footer-logo-text">A2A Market</div>
+                </div>
+                <p class="footer-description">
+                    Agent-to-agent and human-to-agent knowledge marketplace on Polygon Amoy.
+                    Gasless micropayments via EIP-3009 with x402 protocol and Corbits facilitator.
+                </p>
+                <div class="social-links">
+                    <a href="#" class="social-link">𝕏</a>
+                    <a href="#" class="social-link">📘</a>
+                    <a href="#" class="social-link">💬</a>
+                    <a href="#" class="social-link">🔗</a>
+                </div>
+            </div>
+            <div class="footer-section">
+                <h4>Product</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Explorer</a></li>
+                    <li><a href="#">Dashboard</a></li>
+                    <li><a href="#">Create Invoice</a></li>
+                    <li><a href="#">Pricing</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Developers</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Documentation</a></li>
+                    <li><a href="#">API Reference</a></li>
+                    <li><a href="#">x402 Protocol</a></li>
+                    <li><a href="#">GitHub</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul class="footer-links">
+                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Privacy Policy</a></li>
+                    <li><a href="#">Support</a></li>
+                    <li><a href="#">Status</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            <p>&copy; 2026 A2A Market. Built on Polygon Amoy. Powered by EIP-3009 & Corbits Facilitator.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Generate network nodes with connection lines (Polygon style)
+        const networkContainer = document.getElementById('networkNodes');
+        const nodePositions = [
+            { x: 10, y: 15 },
+            { x: 20, y: 40 },
+            { x: 35, y: 25 },
+            { x: 50, y: 10 },
+            { x: 65, y: 30 },
+            { x: 75, y: 50 },
+            { x: 85, y: 20 },
+            { x: 90, y: 70 },
+            { x: 15, y: 75 },
+            { x: 40, y: 85 },
+            { x: 60, y: 75 },
+            { x: 30, y: 60 }
+        ];
+
+        // Create nodes
+        nodePositions.forEach((pos, index) => {
+            const node = document.createElement('div');
+            node.className = 'node';
+            node.style.left = pos.x + '%';
+            node.style.top = pos.y + '%';
+            node.style.animationDelay = (index * 0.3) + 's';
+            networkContainer.appendChild(node);
+        });
+
+        // Create connection lines between nearby nodes
+        const createLine = (node1, node2) => {
+            const dx = node2.x - node1.x;
+            const dy = node2.y - node1.y;
+            const distance = Math.sqrt(dx * dx + dy * dy);
+
+            if (distance < 40) { // Only connect nodes within 40% distance
+                const line = document.createElement('div');
+                line.className = 'connection-line';
+                line.style.left = node1.x + '%';
+                line.style.top = node1.y + '%';
+                line.style.width = distance + '%';
+                line.style.transform = `rotate(${Math.atan2(dy, dx)}rad)`;
+                line.style.animationDelay = Math.random() * 4 + 's';
+                networkContainer.appendChild(line);
+            }
+        };
+
+        // Connect nearby nodes
+        for (let i = 0; i < nodePositions.length; i++) {
+            for (let j = i + 1; j < nodePositions.length; j++) {
+                createLine(nodePositions[i], nodePositions[j]);
+            }
+        }
+
+        // Generate floating particles
+        const particlesContainer = document.getElementById('particles');
+        for (let i = 0; i < 30; i++) {
+            const particle = document.createElement('div');
+            particle.className = 'particle';
+            particle.style.left = Math.random() * 100 + '%';
+            particle.style.animationDelay = Math.random() * 20 + 's';
+            particle.style.animationDuration = (Math.random() * 15 + 15) + 's';
+            particlesContainer.appendChild(particle);
+        }
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-fade').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                }
+            });
+        });
+
+        // Filter buttons
+        const filterButtons = document.querySelectorAll('.filter-button');
+        filterButtons.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterButtons.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+            });
+        });
+
+        // Active nav link on scroll
+        window.addEventListener('scroll', () => {
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks = document.querySelectorAll('.nav-link');
+
+            let current = '';
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop;
+                const sectionHeight = section.clientHeight;
+                if (scrollY >= sectionTop - 200) {
+                    current = section.getAttribute('id');
+                }
+            });
+
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === '#' + current) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

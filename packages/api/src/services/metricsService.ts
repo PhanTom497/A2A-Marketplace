@@ -251,7 +251,7 @@ class MetricsService {
             uniqueAgents: this.uniqueAgents.size,
             requestsPerMinute: this.getRequestsPerMinute(),
             endpointMetrics: Array.from(this.endpointMetrics.values()),
-            recentTransactions: this.transactions.slice(-20).reverse(),
+            recentTransactions: this.transactions.slice(-1000).reverse(),
             hourlyData: this.getHourlyData(),
         };
     }
