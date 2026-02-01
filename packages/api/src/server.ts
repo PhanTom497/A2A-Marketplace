@@ -338,7 +338,10 @@ if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
 }
 
 // Start WebSocket server
-websocketService.initialize(WS_PORT);
+// Start WebSocket server only locally
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+    websocketService.initialize(WS_PORT);
+}
 
 // Graceful shutdown
 process.on('SIGTERM', () => {

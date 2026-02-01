@@ -1184,11 +1184,29 @@
       "amount": 1000,
       "amountFormatted": "0.001000 USDC",
       "status": "success"
+    },
+    {
+      "id": "tx_1769953882112_5rak3d",
+      "timestamp": "2026-02-01T13:51:22.112Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
+    },
+    {
+      "id": "tx_1769954291206_ectytc",
+      "timestamp": "2026-02-01T13:58:11.207Z",
+      "endpoint": "/api/v1/stablecoins/arc",
+      "agentAddress": "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562",
+      "amount": 1000,
+      "amountFormatted": "0.001000 USDC",
+      "status": "success"
     }
   ],
   "uniqueAgents": [
     "unknown",
     "0x35E94A5Ad13FDCe9EEb9274742745EdC4f4CC562"
   ],
-  "lastUpdated": "2026-02-01T12:11:21.462Z"
+  "lastUpdated": "2026-02-01T13:58:11.208Z"
 }

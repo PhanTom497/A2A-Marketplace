@@ -68,11 +68,7 @@ function connectWebSocket() {
             console.log('📡 WebSocket disconnected');
             updateConnectionStatus(false);
             isConnected = false;
-
-            // Start polling as fallback
             startPolling();
-
-            // Attempt reconnection
             setTimeout(connectWebSocket, CONFIG.reconnectInterval);
         };
 
