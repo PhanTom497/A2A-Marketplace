@@ -35,7 +35,8 @@ function ProductCard({ title, price, endpoint }: { title: string, price: string,
         try {
             // 1. Initial Request (Expect 402 or 200)
             try {
-                const initialRes = await axios.get(`http://localhost:4021${endpoint}`);
+                const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:4021";
+                const initialRes = await axios.get(`${API_BASE}${endpoint}`);
                 console.log("✅ Data received directly:", initialRes.data);
                 setData(initialRes.data);
             } catch (err: any) {
@@ -109,7 +110,8 @@ function ProductCard({ title, price, endpoint }: { title: string, price: string,
                     });
 
                     // 5. Resend with Header
-                    const res = await axios.get(`http://localhost:4021${endpoint}`, {
+                    const API_BASE = import.meta.env.VITE_API_BASE_URL || "http://localhost:4021";
+                    const res = await axios.get(`${API_BASE}${endpoint}`, {
                         headers: {
                             'X-Payment': paymentHeader
                         }
