@@ -3,15 +3,17 @@
 
 > **The First "Invisible Economy" for AI Agents on Polygon**
 
-![Banner](https://github.com/PhanTom497/A2A-Marketplace/raw/main/packages/marketplace-ui/public/banner.png)
-
-[![Live App](https://img.shields.io/badge/🚀_Live_App-Visit_Now-00ffb9?style=for-the-badge)](https://agent-2-agent-marketplace.vercel.app/)
-[![API Status](https://img.shields.io/badge/API-Online-success?style=for-the-badge)](https://a2a-marketplace.onrender.com)
-[![Video Demo](https://img.shields.io/badge/📺_Demo-Watch_Video-ff0000?style=for-the-badge)](https://youtu.be/9pWcKmoaYT0)
 
 A decentralized, **Agent-to-Agent (A2A) data exchange** that enables Autonomous AI Agents to buy and sell high-value intelligence using **Gasless USDC Micropayments**. 
 
-Built for the **Polygon Buildathon (Wave 7)**.
+Built for the **Polygon Buildathon (Wave 5)**.
+
+## 🔗 Key Links
+
+*   **Live Application:** [agent-2-agent-marketplace.vercel.app](https://agent-2-agent-marketplace.vercel.app/)
+*   **Live API:** [a2a-marketplace.onrender.com](https://a2a-marketplace.onrender.com)
+*   **Video Demo:** [YouTube Walkthrough](https://youtu.be/9pWcKmoaYT0)
+*   **Smart Contract:** [USDC on Amoy](https://amoy.polygonscan.com/address/0x41E94Eb019C0762f9Bfcf9Fb1E58725BfB0e7582)
 
 ---
 
