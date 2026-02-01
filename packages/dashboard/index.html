@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>A2A Knowledge Marketplace | Dashboard</title>
+  <meta name="description" content="Agent-to-Agent Knowledge Marketplace with x402 Micropayments on Polygon">
+  
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles.css">
+  
+  <!-- Favicon -->
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🤖</text></svg>">
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="header-left">
+        <h1 class="logo">
+          <span class="logo-icon">🤖</span>
+          <span class="logo-text">A2A Knowledge Marketplace</span>
+        </h1>
+        <span class="network-badge">Polygon Amoy</span>
+      </div>
+      <div class="header-right">
+        <div class="connection-status" id="connectionStatus">
+          <span class="status-dot disconnected"></span>
+          <span class="status-text">Disconnected</span>
+        </div>
+        <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme">
+          <span class="icon-sun">☀️</span>
+          <span class="icon-moon">🌙</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main">
+      <!-- Stats Cards -->
+      <section class="stats-grid">
+        <div class="stat-card">
+          <div class="stat-icon">📊</div>
+          <div class="stat-content">
+            <span class="stat-label">Total Requests</span>
+            <span class="stat-value" id="totalRequests">0</span>
+          </div>
+        </div>
+        
+        <div class="stat-card success">
+          <div class="stat-icon">✅</div>
+          <div class="stat-content">
+            <span class="stat-label">Successful</span>
+            <span class="stat-value" id="successfulRequests">0</span>
+          </div>
+        </div>
+        
+        <div class="stat-card warning">
+          <div class="stat-icon">❌</div>
+          <div class="stat-content">
+            <span class="stat-label">Failed</span>
+            <span class="stat-value" id="failedRequests">0</span>
+          </div>
+        </div>
+        
+        <div class="stat-card highlight">
+          <div class="stat-icon">💰</div>
+          <div class="stat-content">
+            <span class="stat-label">Total Revenue</span>
+            <span class="stat-value" id="totalRevenue">0.000000 USDC</span>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">🤖</div>
+          <div class="stat-content">
+            <span class="stat-label">Unique Agents</span>
+            <span class="stat-value" id="uniqueAgents">0</span>
+          </div>
+        </div>
+        
+        <div class="stat-card">
+          <div class="stat-icon">⚡</div>
+          <div class="stat-content">
+            <span class="stat-label">Requests/min</span>
+            <span class="stat-value" id="requestsPerMinute">0</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Charts Section -->
+      <section class="charts-section">
+        <div class="chart-card">
+          <h3 class="chart-title">Requests & Revenue (24h)</h3>
+          <div class="chart-container">
+            <canvas id="requestsChart"></canvas>
+          </div>
+        </div>
+        
+        <div class="chart-card">
+          <h3 class="chart-title">Revenue by Endpoint</h3>
+          <div class="chart-container">
+            <canvas id="endpointChart"></canvas>
+          </div>
+        </div>
+      </section>
+
+      <!-- Endpoint Stats -->
+      <section class="endpoints-section">
+        <h2 class="section-title">Endpoint Performance</h2>
+        <div class="endpoints-grid" id="endpointsGrid">
+          <!-- Populated by JavaScript -->
+        </div>
+      </section>
+
+      <!-- Transactions Table -->
+      <section class="transactions-section">
+        <div class="section-header">
+          <h2 class="section-title">Recent Transactions</h2>
+          <button class="refresh-btn" id="refreshBtn">🔄 Refresh</button>
+        </div>
+        <div class="table-container">
+          <table class="transactions-table">
+            <thead>
+              <tr>
+                <th>Time</th>
+                <th>Endpoint</th>
+                <th>Agent</th>
+                <th>Amount</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="transactionsBody">
+              <tr class="empty-row">
+                <td colspan="5">No transactions yet. Start an AI agent to see data flow!</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="footer-content">
+        <span>A2A Knowledge Marketplace</span>
+        <span class="separator">•</span>
+        <span>Powered by x402 & Polygon</span>
+        <span class="separator">•</span>
+        <span>Wave 5 Buildathon</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Scripts -->
+  <script src="app.js"></script>
+</body>
+</html>

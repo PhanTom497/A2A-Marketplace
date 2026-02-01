@@ -1,0 +1,39 @@
+{
+  "name": "a2a-knowledge-marketplace",
+  "version": "1.0.0",
+  "description": "Agent-to-Agent Knowledge Marketplace with x402 micropayments on Polygon",
+  "private": true,
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:api": "npm run dev -w packages/api",
+    "dev:dashboard": "npm run dev -w packages/dashboard",
+    "build": "npm run build -w packages/api",
+    "test": "npm run test --workspaces --if-present",
+    "fund:wallets": "npx ts-node scripts/fundWallet.ts",
+    "deploy:contracts": "npm run deploy -w packages/contracts",
+    "demo": "bash scripts/e2e-demo.sh"
+  },
+  "keywords": [
+    "a2a",
+    "x402",
+    "polygon",
+    "micropayments",
+    "ai-agents",
+    "knowledge-marketplace"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^20.11.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.3.3"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "dependencies": {
+    "llm-wallet-mcp": "^1.6.9"
+  }
+}

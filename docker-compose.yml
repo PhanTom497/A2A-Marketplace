@@ -1,0 +1,89 @@
+# ============================================
+# A2A Knowledge Marketplace - Docker Compose
+# Complete stack for demo
+# ============================================
+
+version: '3.8'
+
+services:
+  # API Server
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: dev
+    container_name: a2a-api
+    ports:
+      - "4021:4021"
+      - "4022:4022"
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=development
+      - API_PORT=4021
+      - WEBSOCKET_PORT=4022
+    volumes:
+      - ./packages/api:/app/packages/api
+      - ./packages/shared:/app/packages/shared
+      - /app/node_modules
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--spider", "-q", "http://localhost:4021/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  # Dashboard (static files)
+  dashboard:
+    image: nginx:alpine
+    container_name: a2a-dashboard
+    ports:
+      - "3000:80"
+    volumes:
+      - ./packages/dashboard:/usr/share/nginx/html:ro
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  # Python Agent (optional - for demo)
+  python-agent:
+    build:
+      context: ./packages/agents/python-agent
+      dockerfile: Dockerfile
+    container_name: a2a-python-agent
+    env_file:
+      - .env
+    environment:
+      - API_URL=http://api:4021
+      - TEST_MODE=true
+    depends_on:
+      api:
+        condition: service_healthy
+    profiles:
+      - agents
+    command: ["python", "agent.py", "--loop", "5", "--delay", "3"]
+
+  # TypeScript Agent (optional - for demo)
+  ts-agent:
+    build:
+      context: ./packages/agents/ts-agent
+      dockerfile: Dockerfile
+    container_name: a2a-ts-agent
+    env_file:
+      - .env
+    environment:
+      - API_URL=http://api:4021
+      - TEST_MODE=true
+    depends_on:
+      api:
+        condition: service_healthy
+    profiles:
+      - agents
+    command: ["npx", "ts-node", "agent.ts", "--loop", "5", "--delay", "3"]
+
+networks:
+  default:
+    name: a2a-network
+
+volumes:
+  node_modules:

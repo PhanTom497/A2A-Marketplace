@@ -1,0 +1,21 @@
+{
+    "name": "@a2a/ts-agent",
+    "version": "1.0.0",
+    "description": "TypeScript AI Agent for A2A Knowledge Marketplace",
+    "main": "agent.ts",
+    "scripts": {
+        "start": "ts-node agent.ts",
+        "demo": "ts-node agent.ts --loop 3",
+        "test-mode": "ts-node agent.ts --test-mode --loop 3"
+    },
+    "dependencies": {
+        "commander": "^11.1.0",
+        "dotenv": "^16.3.1",
+        "viem": "^2.7.0"
+    },
+    "devDependencies": {
+        "@types/node": "^20.11.0",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.3.3"
+    }
+}

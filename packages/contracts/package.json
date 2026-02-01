@@ -1,0 +1,25 @@
+{
+    "name": "@a2a/contracts",
+    "version": "1.0.0",
+    "description": "Smart contracts for A2A Knowledge Marketplace",
+    "scripts": {
+        "compile": "hardhat compile",
+        "test": "hardhat test",
+        "deploy": "hardhat run scripts/deploy.ts --network polygonAmoy",
+        "deploy:local": "hardhat run scripts/deploy.ts --network localhost",
+        "verify": "hardhat verify --network polygonAmoy",
+        "clean": "hardhat clean"
+    },
+    "devDependencies": {
+        "@nomicfoundation/hardhat-toolbox": "^4.0.0",
+        "@nomicfoundation/hardhat-verify": "^2.0.0",
+        "@openzeppelin/contracts": "^5.0.1",
+        "@types/chai": "^4.3.11",
+        "@types/mocha": "^10.0.6",
+        "chai": "^4.3.10",
+        "dotenv": "^16.3.1",
+        "hardhat": "^2.19.4",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.3.3"
+    }
+}
