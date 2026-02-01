@@ -1,109 +1,143 @@
-# 🤖 A2A Knowledge Marketplace (Polygon Buildathon Wave 5)
 
-> **Agent-to-Agent & Human-to-Agent Exchange with Gasless Micropayments**
+# 🤖 A2A Knowledge Marketplace
 
-A fully functional marketplace on **Polygon Amoy** where users and AI agents can pay micropayments (0.001 USDC) to access niche data APIs.
+> **The First "Invisible Economy" for AI Agents on Polygon**
 
-It features **Gasless Transactions** (via EIP-3009), meaning any user with USDC can transact **without needing POL for gas fees**.
+![Banner](https://github.com/PhanTom497/A2A-Marketplace/raw/main/packages/marketplace-ui/public/banner.png)
 
-![Status](https://img.shields.io/badge/status-live-brightgreen)
-![Network](https://img.shields.io/badge/network-Polygon%20Amoy-purple)
-![Payment](https://img.shields.io/badge/payment-x402%20(Gasless)-blue)
+[![Live App](https://img.shields.io/badge/🚀_Live_App-Visit_Now-00ffb9?style=for-the-badge)](https://agent-2-agent-marketplace.vercel.app/)
+[![API Status](https://img.shields.io/badge/API-Online-success?style=for-the-badge)](https://a2a-marketplace.onrender.com)
+[![Video Demo](https://img.shields.io/badge/📺_Demo-Watch_Video-ff0000?style=for-the-badge)](https://youtu.be/9pWcKmoaYT0)
+
+A decentralized, **Agent-to-Agent (A2A) data exchange** that enables Autonomous AI Agents to buy and sell high-value intelligence using **Gasless USDC Micropayments**. 
+
+Built for the **Polygon Buildathon (Wave 7)**.
 
 ---
 
-## ✨ Features
+## 🚀 The Problem
+Current AI agents are "economically isolated". They can generate amazing insights, but they have no standard way to trade them.
+1.  **No Credit Cards:** Agents can't pass KYC or hold Stripe subscriptions.
+2.  **Gas Friction:** Paying $0.05 in gas to buy data worth $0.01 is economically broken.
+3.  **No Standard:** There is no web protocol for "paid APIs" that autonomous frameworks (LangChain, Eliza) natively understand.
 
-*   **Gasless Payments:** Uses `TransferWithAuthorization` (EIP-3009) so the facilitator pays the gas.
-*   **Real-time Dashboard:** WebSocket-powered analytics of every transaction.
-*   **x402 Protocol:** Standardized HTTP 402 "Payment Required" flow.
-*   **Corbits Facilitator:** Integration with Corbits for verifying signatures off-chain.
+## 💡 The Solution
+A **Protocol for Paid Knowledge** using **HTTP 402**.
+*   **Gasless:** Agents pay in USDC using **EIP-3009 (TransferWithAuthorization)**. The gas is paid by a facilitator, not the agent.
+*   **Standardized:** We utilize the forgotten `402 Payment Required` HTTP status code to negotiate price and payment automatically.
+*   **Invisible:** The transaction happens in milliseconds, purely via cryptographic headers.
+
+---
+
+## ✨ Key Features
+
+### 1. Gasless Micropayments (x402)
+We implemented a custom middleware compliant with **EIP-3009**. Agents sign a typed data message authorized for a specific amount (e.g., 0.001 USDC). This signature is sent in the `X-Payment` header. The API verifies it off-chain and submits it to the blockchain, allowing agents (and users) to transact without holding native POL tokens.
+
+### 2. "God Mode" Dashboard
+A real-time, WebSocket-powered visualization that reveals the "invisible economy." 
+*   Watch every purchase request live.
+*   See revenue metrics tick up in real-time.
+*   Verify agent activity as it happens on-chain.
+
+### 3. Cyber-Glass UI
+A premium, futuristic interface built with **React, Vite, and Framer Motion**. It translates complex cryptographic interactions into a seamless, confident user experience.
+
+---
+
+## 🛠 Tech Stack
+
+| Component | Technology | Description |
+| :--- | :--- | :--- |
+| **Blockchain** | **Polygon Amoy** | Fast, cheap settlement layer. |
+| **Currency** | **USDC (Circle)** | Stable medium of exchange. |
+| **Protocol** | **x402** | Custom HTTP middleware for paid APIs. |
+| **Backend** | **Node.js / Express** | REST API & WebSocket Server. |
+| **Frontend** | **React / Vite** | High-performance UI. |
+| **Styling** | **TailwindCSS** | "Cyber-Glass" Design System. |
+| **Deployment** | **Render & Vercel** | Persistent API & Edge Frontend. |
 
 ---
 
 ## 🏗 Architecture
 
-**Monorepo Structure:**
-*   `packages/marketplace-ui`: The Frontend (React + Vite + Tailwind).
-*   `packages/api`: The Backend (Express + x402 Middleware).
+```mermaid
+graph LR
+    User[AI Agent / User] -- 1. GET Request --> API[A2A API]
+    API -- 2. Returns 402 + Invoice --> User
+    User -- 3. Signs EIP-3009 Permit --> User
+    User -- 4. Resends Request + Signature --> API
+    API -- 5. Verifies Signature --> SmartContract[Polygon USDC Contract]
+    SmartContract -- 6. Transfer Success --> API
+    API -- 7. Returns Data payload --> User
+```
+
+1.  **Discovery:** Agent requests `/api/v1/data`.
+2.  **Negotiation:** Server halts request, returns `402 Payment Required` with price (e.g., 1 USDC) and recipient address.
+3.  **Payment:** Agent cryptographically signs a payment authorization.
+4.  **Exchange:** Agent re-sends request with signature. Server validates and releases data.
 
 ---
 
 ## ⚡ Quick Start
 
-### 1. Prerequisites
-*   Node.js (v18+)
-*   Metamask Wallet (connected to Polygon Amoy)
-*   **Test USDC** on Amoy (Contract: `0x41E94Eb019C0762f9Bfcf9Fb1E58725BfB0e7582`)
+### 1. Installation
+Clone the repository:
+```bash
+git clone https://github.com/PhanTom497/A2A-Marketplace.git
+cd A2A-Marketplace
+npm install
+```
 
-### 2. Configure Environment
-Create a `.env` file in the root `a2a/` directory:
-
+### 2. Environment Setup
+Create a `.env` file in the root directory:
 ```env
 # Network
 POLYGON_RPC=https://rpc-amoy.polygon.technology/
 CHAIN_ID=80002
 
+# Server
+PORT=10000
+API_PORT=4021
+
 # Payments (Amoy USDC)
 USDC_ADDRESS=0x41E94Eb019C0762f9Bfcf9Fb1E58725BfB0e7582
-FACILITATOR_URL=https://facilitator.corbits.dev
 PAYMENT_AMOUNT=1000
-
-# Server
-API_PORT=4021
-WEBSOCKET_PORT=4022
-RECEIVER_WALLET=0x742d35Cc6634C0532925a3b844Bc454e4438f44e
-
-# Features
-TEST_MODE=false
 ```
 
-### 3. Run the Project
-Open two terminals to run the backend and frontend simultaneously.
+### 3. Run Locally
+We use a monorepo structure. You can run both the API and UI in parallel.
 
-**Terminal 1: API Server**
+**Terminal 1 (Backend):**
 ```bash
 cd packages/api
-npm install
 npm run dev
 ```
-*Server runs at: http://localhost:4021*
 
-**Terminal 2: Marketplace UI**
+**Terminal 2 (Frontend):**
 ```bash
 cd packages/marketplace-ui
-npm install
 npm run dev
 ```
-*UI runs at: http://localhost:3000*
+
+Visit `http://localhost:3000` to browse the marketplace.
 
 ---
 
-## 🎮 How to Demo
+## 🔗 Key Links
 
-1.  Open **[http://localhost:3000](http://localhost:3000)**.
-2.  Connect your MetaMask wallet.
-3.  Click **"Unlock Data"** on any dataset (e.g., Arc Stablecoin Analytics).
-4.  **Sign the Permit**: A signature request will pop up. This is a **gasless** EIP-3009 permit.
-5.  **Success**: The button will turn green, and the JSON data will be revealed.
-6.  **Check Dashboard**: Switch to the "Dashboard" tab to see your transaction appear in real-time with the timestamp.
+*   **Live Application:** [agent-2-agent-marketplace.vercel.app](https://agent-2-agent-marketplace.vercel.app/)
+*   **Live API:** [a2a-marketplace.onrender.com](https://a2a-marketplace.onrender.com)
+*   **Video Demo:** [YouTube Walkthrough](https://youtu.be/9pWcKmoaYT0)
+*   **Smart Contract:** [USDC on Amoy](https://amoy.polygonscan.com/address/0x41E94Eb019C0762f9Bfcf9Fb1E58725BfB0e7582)
 
 ---
 
-## 🔍 API Reference
-
-**Protected Endpoint**: `GET /api/v1/stablecoins/arc`
-*   **Returns**: 402 Payment Required
-*   **Header**: `X-Payment` (Requires signed EIP-3009 payload)
-*   **Price**: 0.001 USDC
+## � What's Next?
+*   **Permissionless Listing:** Allow any developer to list an API and earn USDC.
+*   **Reputation Protocol:** On-chain scoring for data quality to prevent "hallucinated" data sales.
+*   **LangChain Integration:** `npm install a2a-tool` for instant agent capabilities.
 
 ---
 
-## 🛠 Troubleshooting
-
-**"PaymentVerifier Error"**
-*   Ensure your wallet has Amoy USDC.
-*   Ensure `TEST_MODE=false`.
-
-**"Port already in use"**
-*   Run `lsof -ti:4021 | xargs kill -9` to clear the API port.
+Made with ❤️ for the **Polygon Buildathon**.
