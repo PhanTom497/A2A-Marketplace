@@ -152,7 +152,7 @@ const x402Middleware = (req: Request, res: Response, next: NextFunction) => {
 
                 paymentLogger.logPaymentFailure(
                     req.path,
-                    payment.payer || 'unknown',
+                    payer || 'unknown',
                     error.message
                 );
 
@@ -310,29 +310,32 @@ const PORT = config.server.port;
 const WS_PORT = config.server.websocketPort;
 
 // Start HTTP server
-app.listen(PORT, () => {
-    console.log('\n🚀 A2A Knowledge Marketplace - API Server');
-    console.log('==========================================');
-    console.log(`📍 HTTP Server: http://localhost:${PORT}`);
-    console.log(`📍 WebSocket: ws://localhost:${WS_PORT}`);
-    console.log(`🌐 Network: ${config.network.name} (Chain ID: ${config.network.chainId})`);
-    console.log(`💰 Price: ${config.x402.paymentAmountFormatted} per request`);
-    console.log(`🔗 Facilitator: ${config.x402.facilitatorUrl}`);
-    console.log(`💼 Receiver: ${config.server.receiverWallet || 'NOT SET'}`);
-    console.log(`🧪 Test Mode: ${config.testMode ? 'ENABLED' : 'disabled'}`);
-    console.log('==========================================');
-    console.log('\n📋 Endpoints:');
-    console.log(`   GET /api/v1/stablecoins/arc  - Indian ARC stablecoin data`);
-    console.log(`   GET /api/v1/markets/latam    - LATAM market insights`);
-    console.log(`   GET /api/v1/crypto/trends    - Global crypto trends`);
-    console.log(`   GET /api/metrics/summary     - Dashboard metrics`);
-    console.log('\nReady to receive agent requests! 🤖\n');
+// Start HTTP server only if not in Vercel/Serverless environment
+if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
+    app.listen(PORT, () => {
+        console.log('\n🚀 A2A Knowledge Marketplace - API Server');
+        console.log('==========================================');
+        console.log(`📍 HTTP Server: http://localhost:${PORT}`);
+        console.log(`📍 WebSocket: ws://localhost:${WS_PORT}`);
+        console.log(`🌐 Network: ${config.network.name} (Chain ID: ${config.network.chainId})`);
+        console.log(`💰 Price: ${config.x402.paymentAmountFormatted} per request`);
+        console.log(`🔗 Facilitator: ${config.x402.facilitatorUrl}`);
+        console.log(`💼 Receiver: ${config.server.receiverWallet || 'NOT SET'}`);
+        console.log(`🧪 Test Mode: ${config.testMode ? 'ENABLED' : 'disabled'}`);
+        console.log('==========================================');
+        console.log('\n📋 Endpoints:');
+        console.log(`   GET /api/v1/stablecoins/arc  - Indian ARC stablecoin data`);
+        console.log(`   GET /api/v1/markets/latam    - LATAM market insights`);
+        console.log(`   GET /api/v1/crypto/trends    - Global crypto trends`);
+        console.log(`   GET /api/metrics/summary     - Dashboard metrics`);
+        console.log('\nReady to receive agent requests! 🤖\n');
 
-    // Log test mode warning
-    if (config.testMode) {
-        console.log('⚠️  WARNING: Running in TEST MODE - payments not verified\n');
-    }
-});
+        // Log test mode warning
+        if (config.testMode) {
+            console.log('⚠️  WARNING: Running in TEST MODE - payments not verified\n');
+        }
+    });
+}
 
 // Start WebSocket server
 websocketService.initialize(WS_PORT);
