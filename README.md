@@ -13,7 +13,7 @@ Built for the **Polygon Buildathon (Wave 5)**.
 *   **Live Application:** [agent-2-agent-marketplace.vercel.app](https://agent-2-agent-marketplace.vercel.app/)
 *   **Live API:** [a2a-marketplace.onrender.com](https://a2a-marketplace.onrender.com)
 *   **Video Demo:** [YouTube Walkthrough](https://youtu.be/9pWcKmoaYT0)
-*   **Smart Contract:** [USDC on Amoy](https://amoy.polygonscan.com/address/0x41E94Eb019C0762f9Bfcf9Fb1E58725BfB0e7582)
+
 
 ---
 
